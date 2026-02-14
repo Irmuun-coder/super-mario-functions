@@ -1,6 +1,9 @@
 // Player position
 let x = 100;
 let y = 300;
+speed = 5;
+let movement = true; 
+let backward = true;
 
 // Jump state
 let jumping = false;
@@ -11,13 +14,19 @@ function setup() {
 }
 
 function draw() {
-  background(120, 190, 255); // sky
+  noStroke();
+  background(255, 200, 77); // sky
+  fill(255,220,13)
+  circle(300,300,300)
+  
 
   // ground
-  fill(60, 200, 90);
+  stroke(0);
+  fill(226, 202, 118);
   rect(0, 330, width, 70);
+  
   updateJump();
-
+  updateMovement();
   drawPlayer();
 }
 
@@ -31,23 +40,35 @@ function jump() {
   }
 }
 
-function moveRight() {
-  
-  x = x+5
-}
-
-function moveLeft() {
-  x = x-5
-}
-
 function keyPressed() {
-  if (key === " ") jump();
-  
-  if (key === "d") moveRight();
-  
-  if (key === "a") moveLeft();
 
+ 
+  
+  
 }
+
+function updateMovement() {
+
+if (backward === true) {
+  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+    x -= speed;
+  }
+}  
+  
+if (movement === true) {
+  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+    x += speed;
+  
+  }
+}
+  if (keyIsDown() || keyIsDown(38)) {
+    jump();
+  }
+  
+  // Keep player on screen
+  x = constrain(x, 0, width - 40);
+}
+
 
 
 // ==================================================
@@ -72,6 +93,22 @@ function updateJump() {
 // 🎨 DRAW PLAYER
 // ==================================================
 function drawPlayer() {
+  
+  let setting = false;
+  
   fill(255, 60, 60);
   rect(x, y, 40, 40);
+  
+  if (x>=300) {
+    movement = false;
+  }
+  if (x < 300){
+    movement = true;
+  }
+   if (x<=75) {
+    backward = false;
+  }
+  if (x > 75) {
+    backward = true;
+  }
 }
