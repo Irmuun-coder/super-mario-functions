@@ -31,8 +31,21 @@ function jump() {
   }
 }
 
+function moveRight() {
+  
+  x = x+5
+}
+
+function moveLeft() {
+  x = x-5
+}
+
 function keyPressed() {
   if (key === " ") jump();
+  
+  if (key === "d") moveRight();
+  
+  if (key === "a") moveLeft();
 
 }
 
